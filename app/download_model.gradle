@@ -1,0 +1,30 @@
+task downloadEfficientnetLite3(type: Download) {
+    src 'https://tfhub.dev/tensorflow/lite-model/efficientdet/lite3/detection/metadata/1?lite-format=tflite'
+    dest project.ext.ASSET_DIR + '/models/efficient_net_lite3.tflite'
+    overwrite false
+}
+task downloadLandmarksClassifierOceaniaAntarctica(type: Download) {
+    src 'https://tfhub.dev/google/lite-model/on_device_vision/classifier/landmarks_classifier_oceania_antarctica_V1/1?lite-format=tflite'
+    dest project.ext.ASSET_DIR + '/models/landmarks_classifier_oceania_antarctica.tflite'
+    overwrite false
+}
+task downloadEfficientnetLite4(type: Download) {
+    src 'https://tfhub.dev/tensorflow/lite-model/efficientnet/lite4/fp32/2?lite-format=tflite'
+    dest project.ext.ASSET_DIR + '/models/efficient_net_lite4.tflite'
+    overwrite false
+}
+task downloadFoodSegmenterV1(type: Download) {
+    src 'https://tfhub.dev/google/lite-model/seefood/segmenter/mobile_food_segmenter_V1/1?lite-format=tflite'
+    dest project.ext.ASSET_DIR + '/models/mobile_food_segmenter_v1.tflite'
+    overwrite false
+}
+task downloadLandmarksClassifierNorthAmerica(type: Download) {
+    src 'https://tfhub.dev/google/lite-model/on_device_vision/classifier/landmarks_classifier_north_america_V1/1?lite-format=tflite'
+    dest project.ext.ASSET_DIR + '/models/landmarks_classifier_north_america.tflite'
+    overwrite false
+}
+preBuild.dependsOn downloadEfficientnetLite3
+preBuild.dependsOn downloadLandmarksClassifierOceaniaAntarctica
+preBuild.dependsOn downloadEfficientnetLite4
+preBuild.dependsOn downloadFoodSegmenterV1
+preBuild.dependsOn downloadLandmarksClassifierNorthAmerica
