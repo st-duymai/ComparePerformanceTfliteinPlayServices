@@ -58,14 +58,24 @@ class BenchmarkTFlite(
                 val outputTensor = TensorBuffer.createFixedSize(outputShape, DataType.FLOAT32)
 
                 val timeExecute = mutableListOf<Long>()
-                (0 until NUM_EXECUTE).forEach { _ ->
+                (0..NUM_EXECUTE).forEach { _ ->
                     val startTime = System.nanoTime()
                     interpreterApi.run(inputTensor?.buffer, outputTensor.buffer.rewind())
-                    timeExecute.add(System.nanoTime() - startTime)
+                    timeExecute.add((System.nanoTime() - startTime) / 1000000)
                 }
+
+                // Remove first time execution because first time execution is always take longer time than the others.
+                timeExecute.removeAt(0)
+
+                val result = CalculateUtils.calculateStandardDeviation(timeExecute)
+
                 Log.d(
                     "Time execute ${model.name}",
-                    "${(timeExecute.average() / 1000000).toInt()} ms"
+                    "${result.first.toInt()} ms"
+                )
+                Log.d(
+                    "Standard deviation ${model.name}",
+                    "${result.second.toInt()} ms"
                 )
                 interpreterApi.close()
             }
