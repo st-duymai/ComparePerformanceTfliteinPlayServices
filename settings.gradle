@@ -14,3 +14,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Performance Tflite play services"
 include ':app'
+include ':tflite_play_services'
+include ':tflite_interpreter'

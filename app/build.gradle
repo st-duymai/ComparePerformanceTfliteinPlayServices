@@ -30,6 +30,18 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    flavorDimensions "tfliteInference"
+    productFlavors {
+        // The TFLite inference is built using the TFLite Java interpreter.
+        interpreter {
+            dimension "tfliteInference"
+        }
+        // Default: The TFLite inference is built using the TFLite Task library (high-level API).
+        playServices {
+            getIsDefault().set(true)
+            dimension "tfliteInference"
+        }
+    }
 }
 
 // import DownloadModels task
@@ -41,7 +53,10 @@ project.ext.ASSET_DIR = projectDir.toString() + '/src/main/assets'
 apply from: 'download_model.gradle'
 
 dependencies {
-
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    interpreterImplementation project(":tflite_interpreter")
+    playServicesImplementation project(":tflite_play_services")
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
@@ -49,9 +64,4 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    // Tensorflow Lite dependencies for Google Play services
-    implementation 'com.google.android.gms:play-services-tflite-java:16.0.0-beta02'
-    // Optional: include Tensorflow Lite Support Library
-    implementation 'com.google.android.gms:play-services-tflite-support:16.0.0-beta02'
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
 }

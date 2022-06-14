@@ -12,6 +12,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/tflite_interpreter" />
+            <option value="$PROJECT_DIR$/tflite_play_services" />
           </set>
         </option>
       </GradleProjectSettings>
